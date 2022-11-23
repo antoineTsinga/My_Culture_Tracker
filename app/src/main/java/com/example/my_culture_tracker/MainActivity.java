@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<ListItem> arrayList;
+    private String itemType;
     Adapter adapter;
     DbHelper dbHelper;
 
@@ -83,16 +84,22 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentIntegrator.initiateScan();
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            itemType = "Book";
+            intentIntegrator.initiateScan();
+        });
+
+        FloatingActionButton floatingActionButton2 = (FloatingActionButton) findViewById(R.id.dvd);
+
+        floatingActionButton2.setOnClickListener(v -> {
+            itemType = "Movie";
+            intentIntegrator.initiateScan();
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
@@ -100,7 +107,15 @@ public class MainActivity extends AppCompatActivity {
             if(result.getContents() == null){
                 Toast.makeText(getApplicationContext(),"Not result found",Toast.LENGTH_LONG).show();
             }else {
-                boolean inserted = dbHelper.insertData(result.getFormatName(),result.getContents());
+
+
+                boolean inserted = false;
+               if(dbHelper.notExist(result.getContents())){
+                   inserted = dbHelper.insertData(result.getContents(), itemType);
+               }else{
+                   Toast.makeText(getApplicationContext(),"Already scan code :"+result.getContents() ,Toast.LENGTH_LONG).show();
+               }
+
 
                 if(inserted){
                     arrayList.clear();

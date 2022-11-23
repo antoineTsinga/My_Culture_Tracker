@@ -26,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+TABLE_NAME+"(id INTEGER PRIMARY KEY AUTOINCREMENT, " + "code TEXT, type TEXT)");
+        db.execSQL("CREATE TABLE "+TABLE_NAME+"(id INTEGER PRIMARY KEY AUTOINCREMENT, " + "code TEXT UNIQUE, type TEXT)");
     }
 
     @Override
@@ -40,16 +40,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,code);
-        contentValues.put(COL_2,type);
+        contentValues.put(COL_3,type);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         long result = db.insert(TABLE_NAME,null,contentValues);
 
-        if(result == -1){
-            return false;
-        }else
-            return true;
+        return result != -1;
     }
 
     // Retrieve all informations about List items in SQLite database
@@ -67,10 +64,27 @@ public class DbHelper extends SQLiteOpenHelper {
                 ListItem listItem = new ListItem(id,code,type);
                 arrayList.add(listItem);
             }
+            cursor.close();
         }
 
-        cursor.close();
+
         return arrayList;
+
+    }
+
+    public boolean notExist(String code){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_2 + "='"+code+"'",null);
+
+        if(cursor != null){
+            boolean count = cursor.moveToNext();
+            cursor.close();
+            return !count;
+        }else{
+            return false;
+        }
+
+
 
     }
 

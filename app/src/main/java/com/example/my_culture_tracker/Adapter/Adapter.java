@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.my_culture_tracker.Model.ListItem;
 import com.example.my_culture_tracker.R;
 import com.example.my_culture_tracker.View.BookView;
+import com.example.my_culture_tracker.View.MovieView;
 
 import java.util.List;
 
@@ -61,12 +62,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
             cardView.setOnClickListener(v -> {
                 String type = listItemArrayList.get(getAdapterPosition()).getType();
 
-                Intent i = new Intent(itemView.getContext(), BookView.class);
-                i.setAction(Intent.ACTION_SEND);
-                i.putExtra(Intent.EXTRA_TEXT,type);
-                i.putExtra("bookIsbn", textViewCode.getText());
-                i.setType("text/plain");
-                itemView.getContext().startActivity(i);
+
+
+                if(type.equals("Movie")) {
+
+                    Intent movieIntent = new Intent(itemView.getContext(), MovieView.class);
+                    movieIntent.setAction(Intent.ACTION_SEND);
+                    movieIntent.putExtra(Intent.EXTRA_TEXT,type);
+                    movieIntent.putExtra("type", textViewType.getText());
+                    movieIntent.putExtra("movieEan", textViewCode.getText());
+                    movieIntent.setType("text/plain");
+                    itemView.getContext().startActivity(movieIntent);
+
+                }else {
+
+                    Intent bookIntent = new Intent(itemView.getContext(), BookView.class);
+                    bookIntent.setAction(Intent.ACTION_SEND);
+                    bookIntent.putExtra(Intent.EXTRA_TEXT, type);
+                    bookIntent.putExtra("type", textViewType.getText());
+                    bookIntent.putExtra("bookIsbn", textViewCode.getText());
+                    bookIntent.setType("text/plain");
+                    itemView.getContext().startActivity(bookIntent);
+
+                }
+
             });
         }
     }

@@ -2,13 +2,14 @@ package com.example.my_culture_tracker.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,8 +23,7 @@ import org.json.JSONObject;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -48,8 +48,6 @@ public class BookView extends AppCompatActivity {
     private ImageView bookView;
     private ProgressBar progressBar;
 
-    private ImageButton backBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,13 +65,12 @@ public class BookView extends AppCompatActivity {
         description = findViewById(R.id.description);
         bookView = findViewById(R.id.bookView);
         progressBar = findViewById(R.id.progressBar);
-        backBtn = findViewById(R.id.backBtn);
+        ImageButton backBtn = findViewById(R.id.backBtn);
 
-        backBtn.setOnClickListener(v ->{
-            onBackPressed();
-        });
+        backBtn.setOnClickListener(v -> onBackPressed());
 
         bookIsbn = (String) getIntent().getSerializableExtra("bookIsbn");
+
 
 
 
@@ -86,27 +83,20 @@ public class BookView extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new
-                Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("response to movie request: " + url);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
 
-                        try {
-                            setText(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
-                        Log.d("Volley response", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Volley response", "An error occurred.");
-                        Log.d("error", error.getMessage());
-                    }
+            try {
+                setText(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("Volley response", response.toString());
+        },
+                error -> {
+                    Log.d("Volley response", "An error occurred.");
+                    Log.d("error", error.getMessage());
                 });
         queue.add(request);
         queue.start();
@@ -118,9 +108,9 @@ public class BookView extends AppCompatActivity {
 
         JSONObject book = response.getJSONObject("ISBN:"+bookIsbn);
         if (book.equals(null) || book.getJSONObject("details").equals(null)) return;
-        System.out.println("Book :"+book);
 
-        JSONObject bookDetails = null;
+
+        JSONObject bookDetails;
 
             bookDetails = book.getJSONObject("details");
 
@@ -140,51 +130,37 @@ public class BookView extends AppCompatActivity {
 
          if(bookDetails.has("covers")){
                 String bookViewUri = "https://covers.openlibrary.org/b/id/"+bookDetails.getJSONArray("covers").remove(0)+"-L.jpg";
-                System.out.println(bookViewUri);
+
              new DownloadImageTask(bookView, progressBar)
                      .execute(bookViewUri);
             }
 
     }
 
-    protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
-        try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
-        }
-        return mIcon11;
-    }
-
-
 
 
     private String getAuthors(JSONArray jsonArray) throws JSONException {
-        String authors =  "";
+        StringBuilder authors = new StringBuilder();
         for(int i=0; i<jsonArray.length(); i++){
-            authors += jsonArray.getJSONObject(i).getString("name") +", ";
+            authors.append(jsonArray.getJSONObject(i).getString("name")).append(", ");
         }
 
-        return authors;
+        return authors.toString();
     }
 
     private String getPublishers(JSONArray jsonArray) throws JSONException {
-        System.out.println(jsonArray);
-        String publishersString =  "";
+
+        StringBuilder publishersString = new StringBuilder();
         for(int i=0; i<jsonArray.length(); i++){
-            publishersString += jsonArray.getString(i) +", ";
+            publishersString.append(jsonArray.getString(i)).append(", ");
         }
 
-        return publishersString;
+        return publishersString.toString();
     }
 
     private String getIdentifiers(JSONObject jsonObject) throws JSONException {
 
-        System.out.println(jsonObject);
+
         String identifiers =  "";
         String amazonUri = "https://www.amazon.fr/dp/"+jsonObject.getJSONArray("amazon").remove(0);
         String googleUri = "https://books.google.fr/books/about/?"+jsonObject.getJSONArray("google").remove(0);
@@ -193,6 +169,7 @@ public class BookView extends AppCompatActivity {
         return identifiers;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
         ProgressBar loader;

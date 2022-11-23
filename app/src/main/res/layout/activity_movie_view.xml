@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back01"
-    tools:context=".View.BookView">
-
+    tools:context=".View.MovieView">
     <!-- Toolbar-->
     <RelativeLayout
-        android:id="@+id/toolbarRl"
+        android:id="@+id/toolbarRl2"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@drawable/shape_toolbar02">
 
         <!--Back button-->
         <ImageButton
-            android:id="@+id/backBtn"
+            android:id="@+id/backBtn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back_white"
@@ -24,12 +23,12 @@
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:contentDescription="@string/back_button" />
-        
+
         <!--Title-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_details"
+            android:text="@string/movie_details"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textStyle="bold"/>
@@ -40,22 +39,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:padding="10dp"
-        android:layout_below="@+id/toolbarRl"
+        android:layout_below="@+id/toolbarRl2"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--BookInfo-->
+            <!--Movie Info-->
             <RelativeLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!--Book Preview-->
+                <!--Movie Preview-->
                 <RelativeLayout
-                    android:id="@+id/pdfRl"
+                    android:id="@+id/movieRl"
                     android:layout_width="110dp"
                     android:layout_height="150dp"
                     android:layout_marginEnd="5dp"
@@ -63,51 +62,51 @@
 
                     <!--View-->
                     <ImageView
-                        android:id="@+id/bookView"
+                        android:id="@+id/movieView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:contentDescription="Book View" />
+                        android:contentDescription="@string/movie_view" />
 
                     <!--ProgressBar-->
                     <ProgressBar
-                        android:id="@+id/progressBar"
+                        android:id="@+id/progressBar2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
 
-                <!--Book Title-->
+                <!--Movie Title-->
 
                 <TextView
-                    android:id="@+id/titleTv"
+                    android:id="@+id/title2Tv"
                     style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/pdfRl"
-                    android:text="@string/book_title"/>
+                    android:layout_toEndOf="@id/movieRl"
+                    android:text="@string/movie_title"/>
 
 
                 <!--Table-->
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/titleTv"
-                    android:layout_toEndOf="@id/pdfRl">
+                    android:layout_below="@+id/title2Tv"
+                    android:layout_toEndOf="@id/movieRl">
 
 
                     <!--Authors Row-->
                     <TableRow >
 
                         <TextView
-                            android:id="@+id/authorsLabel"
+                            android:id="@+id/authors2Label"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/authors"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/authorsTv"
+                            android:id="@+id/authors2Tv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -122,14 +121,14 @@
                         android:layout_marginTop="5dp"
                         >
                         <TextView
-                            android:id="@+id/dateLabel"
+                            android:id="@+id/date2Label"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/date"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/dateTv"
+                            android:id="@+id/date2Tv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -143,14 +142,14 @@
                         android:layout_marginTop="5dp"
                         >
                         <TextView
-                            android:id="@+id/publishersLabel"
+                            android:id="@+id/publishers2Label"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/publishers"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/publishersTv"
+                            android:id="@+id/publishers2Tv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -159,19 +158,19 @@
                             android:layout_marginEnd="5dp"/>
                     </TableRow>
 
-                    <!--ISBN10 Count Row-->
+                    <!--Code Row-->
                     <TableRow
                         android:layout_marginTop="5dp"
                         >
                         <TextView
-                            android:id="@+id/isbn10Label"
+                            android:id="@+id/codeBarLabel"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/isbn_10"
+                            android:text="@string/code_bar"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/isbn10Tv"
+                            android:id="@+id/codeBarTv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -180,19 +179,19 @@
                             android:layout_marginEnd="5dp"/>
                     </TableRow>
 
-                    <!--ISBN13 Count Row-->
+                    <!--Edition Row-->
                     <TableRow
                         android:layout_marginTop="5dp"
                         >
                         <TextView
-                            android:id="@+id/isbn13Label"
+                            android:id="@+id/editionLabel"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/isbn_13"
+                            android:text="@string/edition"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/isbn13Tv"
+                            android:id="@+id/editionTv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -201,40 +200,19 @@
                             android:layout_marginEnd="5dp"/>
                     </TableRow>
 
-                    <!--Number of pages Row-->
+                    <!--Media Row-->
                     <TableRow
                         android:layout_marginTop="5dp"
                         >
                         <TextView
-                            android:id="@+id/pagesLabel"
+                            android:id="@+id/mediaLabel"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/pages"
+                            android:text="@string/media"
                             android:layout_marginEnd="5dp"/>
                         <TextView
-                            android:id="@+id/pagesTv"
-                            android:layout_weight="1"
-                            style="@style/TextAppearance.MaterialComponents.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/n_a"
-                            android:layout_marginEnd="5dp"/>
-                    </TableRow>
-
-                    <!--Weight Row-->
-                    <TableRow
-                        android:layout_marginTop="5dp"
-                        >
-                        <TextView
-                            android:id="@+id/weightLabel"
-                            style="@style/TextAppearance.MaterialComponents.Caption"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weight"
-                            android:layout_marginEnd="5dp"/>
-                        <TextView
-                            android:id="@+id/weightTv"
+                            android:id="@+id/mediaTv"
                             android:layout_weight="1"
                             style="@style/TextAppearance.MaterialComponents.Caption"
                             android:layout_width="wrap_content"
@@ -246,27 +224,23 @@
 
             </RelativeLayout>
 
-            <!--Book description-->
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="@color/black"/>
 
-            <!--Book identifiers-->
+            <!--Actors Name-->
             <TextView
                 android:layout_marginTop="10dp"
-                android:id="@+id/identifiers"
+                android:id="@+id/actorsLabel"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/identifiers"
+                android:text="@string/the_actors_names"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/actorsTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/n_a"
                 android:textColor="@color/black"/>
         </LinearLayout>
     </ScrollView>
-
-
-
-
 </RelativeLayout>

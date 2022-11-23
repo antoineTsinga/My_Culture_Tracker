@@ -4,4 +4,21 @@
     <string name="book_details">Book Details</string>
     <string name="back_button">Back button</string>
     <string name="book_title">Book Title</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="movie_view">Movie View</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="authors">Authors</string>
+    <string name="n_a">N/A</string>
+    <string name="the_actors_names">The Actors Names</string>
+    <string name="media">Media</string>
+    <string name="edition">Edition</string>
+    <string name="code_bar">Code bar</string>
+    <string name="publishers">Publishers</string>
+    <string name="date">Date</string>
+    <string name="isbn_10">ISBN 10</string>
+    <string name="isbn_13">ISBN 13</string>
+    <string name="pages">Pages</string>
+    <string name="weight">Weight</string>
+    <string name="description">The description of the book.</string>
+    <string name="identifiers">The identifiers of the book.</string>
 </resources>
