@@ -125,7 +125,6 @@ public class BookView extends AppCompatActivity {
         weight.setText(bookDetails.has("weight")? bookDetails.getString("weight"): "N/A");
         isbn10.setText(bookDetails.has("isbn_10") ?bookDetails.getString("isbn_10"): "N/A");
         description.setText(bookDetails.has("description") ?bookDetails.getString("description"): "The description of the book.");
-        identifiers.setText(bookDetails.has("identifiers") ?getIdentifiers(bookDetails.getJSONObject("identifiers")): "The identifiers of the book.");
 
 
          if(bookDetails.has("covers")){
@@ -134,6 +133,8 @@ public class BookView extends AppCompatActivity {
              new DownloadImageTask(bookView, progressBar)
                      .execute(bookViewUri);
             }
+        identifiers.setText(bookDetails.has("identifiers") ?getIdentifiers(bookDetails.getJSONObject("identifiers")): "The identifiers of the book.");
+
 
     }
 
@@ -162,11 +163,11 @@ public class BookView extends AppCompatActivity {
 
 
         String identifiers =  "";
-        String amazonUri = "https://www.amazon.fr/dp/"+jsonObject.getJSONArray("amazon").remove(0);
-        String googleUri = "https://books.google.fr/books/about/?"+jsonObject.getJSONArray("google").remove(0);
+        String amazonUri = jsonObject.has("amazon") ?"https://www.amazon.fr/dp/"+jsonObject.getJSONArray("amazon").remove(0):"";
+        String googleUri = jsonObject.has("google") ?"https://books.google.fr/books/about/?"+jsonObject.getJSONArray("google").remove(0):"";
         identifiers += amazonUri +"\n"+googleUri;
 
-        return identifiers;
+        return !identifiers.equals("\n")?identifiers:"The identifiers of the book";
     }
 
     @SuppressLint("StaticFieldLeak")

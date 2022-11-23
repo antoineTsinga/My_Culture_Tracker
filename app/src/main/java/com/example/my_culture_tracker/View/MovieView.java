@@ -123,6 +123,8 @@ public class MovieView extends AppCompatActivity {
                 .parse(new InputSource(new StringReader(response)));
 
 
+        if(xml.getElementsByTagName("error").getLength()>0) return;
+
         title.setText(!xml.getElementsByTagName("fr").item(0).getTextContent().equals("")? xml.getElementsByTagName("fr").item(0).getTextContent():"N/A");
         date.setText(!xml.getElementsByTagName("annee").item(0).getTextContent().equals("")?xml.getElementsByTagName("annee").item(0).getTextContent():"N/A");
         publishers.setText(!xml.getElementsByTagName("editeur").item(0).getTextContent().equals("")?xml.getElementsByTagName("editeur").item(0).getTextContent():"N/A");
