@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(arrayList.size()>0){
             // data is available
-            adapter = new Adapter(arrayList,this);
+            adapter = new Adapter(arrayList,this, dbHelper);
             recyclerView.setAdapter(adapter);
         }else {
             Toast.makeText(getApplicationContext(),"Not data found", Toast.LENGTH_LONG).show();
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 if(inserted){
                     arrayList.clear();
                     arrayList = dbHelper.getAllInformations();
-                    adapter = new Adapter(arrayList,this);
+                    adapter = new Adapter(arrayList,this, dbHelper);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 

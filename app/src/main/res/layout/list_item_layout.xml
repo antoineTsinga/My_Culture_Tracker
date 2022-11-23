@@ -12,30 +12,41 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/LL1">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/LL1"
+                android:layout_width="299dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:id="@+id/textViewCode"
-                android:text="CODE"
-                android:textSize="18sp"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textViewCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="CODE"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="TYPE" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/textViewType"
-                android:text="TYPE"/>
-
-
-
-
-
-
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:backgroundTint="#B52929"
+                android:text="delete" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

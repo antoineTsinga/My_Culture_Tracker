@@ -6,12 +6,15 @@ import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.my_culture_tracker.Database.DbHelper;
 import com.example.my_culture_tracker.Model.ListItem;
 import com.example.my_culture_tracker.R;
 import com.example.my_culture_tracker.View.BookView;
@@ -23,10 +26,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
 
     private List<ListItem> listItemArrayList;
     private Context context;
+    DbHelper dbHelper;
 
-    public Adapter(List<ListItem> listItemArrayList, Context context){
+    public Adapter(List<ListItem> listItemArrayList, Context context, DbHelper dbHelper){
         this.listItemArrayList = listItemArrayList;
         this.context = context;
+        this.dbHelper = dbHelper;
     }
 
 
@@ -34,6 +39,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
     @Override
     public AdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout,parent,false);
+
         return new  AdapterViewHolder(v);
     }
 
@@ -42,6 +48,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
         ListItem listItem = listItemArrayList.get(position);
         holder.textViewCode.setText(listItem.getCode());
         holder.textViewType.setText(listItem.getType());
+
+
+        holder.buttonDel.setOnClickListener(
+                v->{
+
+                    System.out.println("-----------id : "+position);
+                    System.out.println("-----------id2 : "+listItem.getId());
+                    dbHelper.deleteRow(listItem.getId());
+                    listItemArrayList.remove(position);
+                    this.notifyDataSetChanged();
+                }
+        );
+
         Linkify.addLinks(holder.textViewCode,Linkify.ALL);
     }
 
@@ -53,11 +72,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.AdapterViewHolder> {
     public class AdapterViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewCode,textViewType;
         private CardView cardView;
+        private Button buttonDel;
         public AdapterViewHolder( View itemView) {
             super(itemView);
             textViewCode = (TextView) itemView.findViewById(R.id.textViewCode);
             textViewType = (TextView) itemView.findViewById(R.id.textViewType);
+            buttonDel = (Button) itemView.findViewById(R.id.btnDelete);
+
             cardView = (CardView) itemView.findViewById(R.id.cardView);
+
 
             cardView.setOnClickListener(v -> {
                 String type = listItemArrayList.get(getAdapterPosition()).getType();
